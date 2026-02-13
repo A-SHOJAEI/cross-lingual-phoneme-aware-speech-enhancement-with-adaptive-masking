@@ -1,0 +1,82 @@
+# Default training configuration
+seed: 42
+
+# Data configuration
+data:
+  sample_rate: 16000
+  n_fft: 1024
+  hop_length: 256
+  win_length: 1024
+  n_mels: 128
+  high_resource_langs: ["en", "es"]
+  low_resource_langs: ["cy", "eu"]
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  num_workers: 4
+  max_audio_length: 10.0  # seconds
+  snr_range: [-5, 20]  # dB range for noise addition
+  noise_types: ["white", "babble", "cafe"]
+
+# Model configuration
+model:
+  architecture: "PhonemeAwareEnhancer"
+  encoder_dim: 256
+  decoder_dim: 256
+  phoneme_embedding_dim: 128
+  num_phonemes: 128
+  num_attention_heads: 8
+  num_encoder_layers: 6
+  num_decoder_layers: 6
+  dropout: 0.1
+  use_contrastive_alignment: true
+  temperature: 0.07
+  cross_lingual_transfer: true
+
+# Training configuration
+training:
+  batch_size: 16
+  num_epochs: 100
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  gradient_clip: 5.0
+  mixed_precision: true
+  accumulation_steps: 1
+
+  # Learning rate scheduling
+  scheduler:
+    type: "cosine"  # Options: cosine, step, plateau
+    warmup_epochs: 5
+    min_lr: 0.00001
+
+  # Early stopping
+  early_stopping:
+    patience: 15
+    min_delta: 0.001
+
+  # Loss weights
+  loss_weights:
+    reconstruction: 1.0
+    perceptual: 0.5
+    contrastive: 0.3
+    phoneme_preservation: 0.4
+
+# Evaluation configuration
+evaluation:
+  metrics: ["pesq", "stoi", "si_sdr", "phoneme_preservation"]
+  save_samples: true
+  num_samples: 10
+
+# Paths
+paths:
+  data_dir: "./data"
+  model_dir: "./models"
+  checkpoint_dir: "./checkpoints"
+  results_dir: "./results"
+  log_dir: "./logs"
+
+# MLflow configuration
+mlflow:
+  experiment_name: "phoneme-aware-speech-enhancement"
+  run_name: "default"
+  tracking_uri: "./mlruns"
