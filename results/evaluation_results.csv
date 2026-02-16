@@ -1,0 +1,6 @@
+Metric,Value,StdDev
+pesq,0.0000,0.0000
+stoi,0.0000,0.0000
+si_sdr,10.0007,0.0074
+phoneme_preservation_rate,0.9915,0.0004
+num_samples,50.0000,0.0000

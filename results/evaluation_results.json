@@ -1,0 +1,11 @@
+{
+  "pesq": 0.0,
+  "pesq_std": 0.0,
+  "stoi": 0.0,
+  "stoi_std": 0.0,
+  "si_sdr": 10.000731964111328,
+  "si_sdr_std": 0.007384720709267844,
+  "phoneme_preservation_rate": 0.9914879846572876,
+  "phoneme_preservation_rate_std": 0.00038050007496032335,
+  "num_samples": 50
+}
